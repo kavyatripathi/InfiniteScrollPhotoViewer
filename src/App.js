@@ -1,4 +1,3 @@
-
 import React, {useState,useEffect,Suspense} from 'react';
 import Loader from './components/Loader';
 
@@ -39,6 +38,7 @@ function App() {
     axios.get(`${baseURL}/photos/random?client_id=${accessKey}&count=12`)
     .then(res=>setImage([...image,...res.data]))
   }
+  console.log(image);
   return (
     <div className="App">
       Hello World;
@@ -52,7 +52,9 @@ function App() {
         <ImageStyle>
           {image.map(im=>(
             <Suspense fallback={<Loader/>}>
-              <Photos url={im.urls.thumb} key={im.id}/> 
+              <Photos url={im.urls.thumb} key={im.id} full={im.urls.full} 
+              author = {im.user.first_name} download={im.downloads}
+              /> 
             </Suspense>
           ))}
         </ImageStyle>
